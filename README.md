@@ -4,7 +4,9 @@
  <p align="center">Principle of WinRAR key generation</p>
 </p>
 <p align="center">
-  <img src="https://img.shields.io/github/v/release/bitcookies/winrar-keygen?label=version" />
+  <a href="https://github.com/bitcookies/winrar-keygen/releases">
+  	<img src="https://img.shields.io/github/v/release/bitcookies/winrar-keygen?label=version" />
+  </a>
   <a href="https://github.com/bitcookies/winrar-keygen/issues">
   	<img alt="Issues" src="https://img.shields.io/github/issues/bitcookies/winrar-keygen?color=F48D73" />
   </a>
@@ -16,8 +18,6 @@
   	<img alt="License" src="https://img.shields.io/github/license/bitcookies/winrar-keygen.svg" />
   </a>
 </p>
-
-
 <p align="center">
   <a href="README.zh-CN.md">简体中文</a> | <a href="README.md">English</a>
 </p>
@@ -36,23 +36,38 @@ This repository will tell you how WinRAR license file `"rarreg.key"` is generate
 
 See [here](README.HOW_DOES_IT_WORK.md).
 
-## 3. Use Github Actions
+## 3. How to use?
+
+There are several ways to use it 🧐:
+
+- [Use Github Actions with Push](#4-Use-Github-Actions-with-Push)
+- [Use Github Actions with Secrets](#5-Use-Github-Actions-with-Secrets)
+- [Build in Visual Studio](#6-Build-in-Visual-Studio)
+
+## 4. Use Github Actions with Push
+
+<details>
+<summary>Click to expand</summary>
 
 Github Action is a CI/CD tool introduced after Microsoft acquired Github, and you can run programs on GitHub Action by following these steps.
 
-### 3.1 Fork
+### 4.1 Fork
 
 **Fork** this repo.
 
-![step-1](assets/actions-step-1.png)
+![Fork](assets/fork-light.png#gh-light-mode-only)
+
+![Fork](assets/fork-dark.png#gh-dark-mode-only)
 
 If you've forked before and I've committed new code, but you don't know how to merge the new content into your repository, then you can delete the current fork and fork again.
 
-### 3.2 Modify info.json
+### 4.2 Modify info.json
 
 Go to `keygen/info.json` and click on the edit button to edit the file.
 
-![step-2](assets/actions-step-2.png)
+![Edit](assets/edit-json-light.png#gh-light-mode-only)
+
+![Edit](assets/edit-json-dark.png#gh-dark-mode-only)
 
 You can see:
 
@@ -67,38 +82,98 @@ You can modify the values corresponding to `text1` and `text2`:
 
 ```json
 {
-    "text1": "yourname",
-    "text2": "yourteam"
+    "text1": "Your Name",
+    "text2": "Your License"
 }
 ```
 
-It is important to note that `test1` and `test2` are **ANSI-encoded string, without space character.**
+It is important to note that `test1` and `test2` are **ANSI-encoded string, space are now supported.**
 
 Once you have finished making changes, click the **Commit changes** button and Github Actions will start automatically.
 
 If Github Actions does not start automatically, you will need to click on the Actions page to **allow this workflows to run**, then modify and commit `keygen/info.json` again.
 
-### 3.3 Download Key
+### 4.3 Download Key
 
-Go to the Actions page to see the status of the program.
+Go to **Actions** and select **WinRAR Keygen** to see the status of the program.
 
-![step-3](assets/actions-step-3.png)
+![Workflow](assets/push-workflows-light.png#gh-light-mode-only)
+
+![Workflow](assets/push-workflows-dark.png#gh-dark-mode-only)
 
 Green means it ran successfully, yellow means it is running, red means it failed. After running successfully, open the corresponding task and select **rarreg_file** to download.
 
-![step-4](assets/actions-step-4.png)
+![Download](assets/file-download-light.png##gh-light-mode-only)
+
+![Download](assets/file-download-dark.png#gh-dark-mode-only)
 
 After extract `rarreg_file.zip`, you will get `rarreg.key`, just drag and drop it into WinRAR.
 
-If you get an invalid key, please check [the specific solution](#5-invalid-key).
+If you get an invalid key, please check [the specific solution](#7-invalid-key).
 
-## 4. Build in Visual Studio
+</details>
+
+## 5. Use Github Actions with Secrets
+
+<details>
+<summary>Click to expand</summary>
+
+In order to make Merge and Pull easier for everyone, a new method for using Github Actions through [Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) has been added:
+
+### 5.1 Fork
+
+**Fork** this repo.
+
+![Fork](assets/fork-light.png#gh-light-mode-only)
+
+![Fork](assets/fork-dark.png#gh-dark-mode-only)
+
+### 5.2 Creating Secrets
+
+Go to **Settings > Secrets > Actions > New repository secret**:
+
+![Secrets](assets/secrets-light.png#gh-light-mode-only)
+
+![Secrets](assets/secrets-dark.png#gh-dark-mode-only)
+
+Create two Secrets named `text1` and `text2` and fill in values:
+
+![Add Secrets](assets/secrets-add-light.png#gh-light-mode-only)
+
+![Add Secrets](assets/secrets-add-dark.png#gh-dark-mode-only)
+
+Once created, you will see:
+
+![Secrets Repo](assets/secrets-repo-light.png#gh-light-mode-only)
+
+![Secrets Repo](assets/secrets-repo-dark.png#gh-dark-mode-only)
+
+### 5.3 Run Workflow
+
+Go to **Actions** and select **WinRAR Keygen Secrets** to run Workflow manually:
+
+![Run](assets/run-workflow-light.png#gh-light-mode-only)
+
+![Run](assets/run-workflow-dark.png#gh-dark-mode-only)
+
+After running successfully, open the corresponding task and select **rarreg_file** to download.
+
+![Download](assets/file-download-light.png##gh-light-mode-only)
+
+![Download](assets/file-download-dark.png#gh-dark-mode-only)
+
+</details>
+
+## 6. Build in Visual Studio
+
+<details>
+<summary>Click to expand</summary>
 
 I recommend using the Github Actions, but you can still do your own compilation.
 
 If you don't want to compile it yourself, you can also go to the [release](https://github.com/bitcookies/winrar-keygen/releases/) page to get `winrar-keygen.exe`.
 
-### 4.1 Prerequisites
+### 6.1 Prerequisites
 
 1. Please make sure that you have **Visual Studio 2022**. Because this is a VS2022 project. If you are still using Visual Studio 2019, you can find projects for VS2019 in the [vs2019](https://github.com/bitcookies/winrar-keygen/tree/vs2019) branch, but this branch will no longer be maintained.
 
@@ -123,7 +198,7 @@ If you don't want to compile it yourself, you can also go to the [release](https
    ```
    
 
-### 4.2 Build
+### 6.2 Build
 
 1. Open this project in __Visual Studio__.
 
@@ -133,7 +208,7 @@ If you don't want to compile it yourself, you can also go to the [release](https
 
 You will see executable files in `bin/` directory. 
 
-### 4.3 How to Use?
+### 6.3 How to Use?
 
 Execute the following code in the terminal and configure two parameters to generate `rarreg.key`.
 
@@ -141,7 +216,7 @@ Here is an example use `Github` and `Github.com`:
 
 ```
 Usage:
-        winrar-keygen.exe <your name> <license type>
+        winrar-keygen.exe <Your Name> <Your License>
 
 Example:
 
@@ -172,13 +247,15 @@ de3cdc56b311475b484e80b48157a0c3af60ca4f7f9c75d49bc50d
 
 Save the generated information in **ANSI encoding format** as `rarreg.key`.
 
-## 5. Invalid Key
+</details>
+
+## 7. Invalid Key
 
 Why is my `rarreg.key` invalid?
 
-### 5.1 ANSI Encoded
+### 7.1 ANSI Encoded
 
-`test1` and `test2` are **ANSI-encoded string, without space character** [Issues #5](https://github.com/bitcookies/winrar-keygen/issues/5).
+`test1` and `test2` are **ANSI-encoded string, space are now supported** [Issues #5](https://github.com/bitcookies/winrar-keygen/issues/5).
 
 ```console
 winrar-keygen.exe <text1> <text2>
@@ -186,7 +263,7 @@ winrar-keygen.exe <text1> <text2>
 
 You can refer to: [Generation of "rarreg.key"](https://github.com/bitcookies/winrar-keygen/blob/master/README.HOW_DOES_IT_WORK.md#7-generation-of-rarregkey)
 
-### 5.2 TXT Encoding
+### 7.2 TXT Encoding
 
 If you use the following command:
 
@@ -202,7 +279,7 @@ Please use the following command:
 winrar-keygen.exe "Github" "Github.com" > rarreg.key | out-file -encoding ascii rarreg.key
 ```
 
-### 5.3 Location of Key
+### 7.3 Location of Key
 
 If you are unable to drag, you can try to put the `rarreg.key` in the following directory.
 
@@ -210,22 +287,20 @@ If you are unable to drag, you can try to put the `rarreg.key` in the following 
 C:\Users\yourname\AppData\Roaming\WinRAR\rarreg.key
 ```
 
-## 6. Feedback
+## 8. Contributing
+
+### 8.1 Suggestion
 
 If you encounter some problems, you can report on the [Issues](https://github.com/bitcookies/winrar-keygen/issues) page. There will be many enthusiastic developers or Github users to help you.
 
-## 7. Contributing
-
-### 7.1 Suggestion
-
 This project welcomes contributions and suggestions. You can make suggestions in [Issues](https://github.com/bitcookies/winrar-keygen/issues), or submit a pull request 😄
 
-### 7.2 Thanks
+### 8.2 Thanks
 
 Thank you very much to some enthusiastic developers for helping answer some questions in [Issues](https://github.com/bitcookies/winrar-keygen/issues).
 
 🏆 Special Thanks [@Sonic-The-Hedgehog-LNK1123](https://github.com/Sonic-The-Hedgehog-LNK1123)
 
-## 8. License
+## 9. License
 
 The code is available under the [MIT license](https://github.com/bitcookies/winrar-keygen/blob/master/LICENSE)
